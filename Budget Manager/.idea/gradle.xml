@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -10,6 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Budget Manager/task" />
+            <option value="$PROJECT_DIR$/Topics/The List interface/Companies" />
+            <option value="$PROJECT_DIR$/Topics/The List interface/Count the value occurrences" />
+            <option value="$PROJECT_DIR$/Topics/The List interface/Greek letters" />
+            <option value="$PROJECT_DIR$/Topics/The List interface/Theory" />
             <option value="$PROJECT_DIR$/task" />
             <option value="$PROJECT_DIR$/util" />
           </set>
