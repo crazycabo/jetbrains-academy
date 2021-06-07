@@ -28,7 +28,7 @@ public class Main {
             } else if (verifyNatural(num)) {
                 outputMessage("The first parameter should be a natural number or zero.");
             } else {
-                outputProperties(num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num));
+                outputProperties(num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num));
             }
         }
     }
@@ -69,13 +69,18 @@ public class Main {
         return numStr.equals(new StringBuilder(numStr).reverse().toString());
     }
 
-    private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic) {
+    private static boolean verifyGapful(long number) {
+        return false;
+    }
+
+    private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
         outputMessage("Properties of " + number);
-        outputMessage("        even: " + isEven);
-        outputMessage("         odd: " + !isEven);
         outputMessage("        buzz: " + isBuzz);
         outputMessage("        duck: " + isDuck);
         outputMessage(" palindromic: " + isPalindromic);
+        outputMessage("      gapful: " + isGapful);
+        outputMessage("        even: " + isEven);
+        outputMessage("         odd: " + !isEven);
     }
 
     private static void outputMessage(String message) {
