@@ -1,5 +1,7 @@
 package numbers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,16 +22,36 @@ public class Main {
 
         while (loopCheck) {
             outputMessage("Enter a request: ");
-            long num = scanner.nextLong();
+            String[] inputs = scanner.nextLine().split(" ");
+
+            long num = Long.parseLong(inputs[0]);
 
             if (num == 0) {
                 outputMessage("Goodbye!");
                 loopCheck = false;
-            } else if (verifyNatural(num)) {
-                outputMessage("The first parameter should be a natural number or zero.");
-            } else {
-                outputProperties(num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num));
             }
+
+            if (verifyNatural(num)) {
+                outputMessage("The first parameter should be a natural number or zero.");
+                continue;
+            }
+
+            if (inputs.length == 2) {
+                long count = Long.parseLong(inputs[1]);
+
+                if (verifyNatural(count)) {
+                    outputMessage("The second parameter should be a natural number.");
+                    continue;
+                }
+
+                for (int i = 0; i < count; i++) {
+                    outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i));
+                }
+            } else {
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num));
+            }
+
+            outputMessage("\n");
         }
     }
 
@@ -84,14 +106,39 @@ public class Main {
         return number % divisor == 0;
     }
 
-    private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
-        outputMessage("\nProperties of " + number);
-        outputMessage("        buzz: " + isBuzz);
-        outputMessage("        duck: " + isDuck);
-        outputMessage(" palindromic: " + isPalindromic);
-        outputMessage("      gapful: " + isGapful);
-        outputMessage("        even: " + isEven);
-        outputMessage("         odd: " + !isEven + "\n");
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
+        if (isSimple) {
+            List<String> types = new ArrayList<>();
+            StringBuilder message = new StringBuilder(number + " is ");
+
+            types.add((isEven) ? "even" : "odd");
+
+            if (isBuzz) {
+                types.add("buzz");
+            }
+
+            if (isDuck) {
+                types.add("duck");
+            }
+
+            if (isPalindromic) {
+                types.add("palindromic");
+            }
+
+            if (isGapful) {
+                types.add("gapful");
+            }
+
+            outputMessage(message.append(String.join(", ", types)).toString());
+        } else {
+            outputMessage("\nProperties of " + number);
+            outputMessage("        buzz: " + isBuzz);
+            outputMessage("        duck: " + isDuck);
+            outputMessage(" palindromic: " + isPalindromic);
+            outputMessage("      gapful: " + isGapful);
+            outputMessage("        even: " + isEven);
+            outputMessage("         odd: " + !isEven);
+        }
     }
 
     private static void outputMessage(String message) {
