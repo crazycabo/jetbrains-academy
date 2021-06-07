@@ -414,12 +414,12 @@ files:
         private static final Checker ERROR_PROPERTY = new RegexChecker(
                 "The property .+ is wrong",
                 "The request: \"{0}\" has one wrong property. "
-                        + "Expected message: \"property ... is wrong\"."
+                        + "Expected message: \"The property ... is wrong\"."
         );
         private static final Checker ERROR_PROPERTIES = new RegexChecker(
                 "The properties .+ are wrong",
                 "The request: \"{0}\" has two or more incorrect properties. "
-                        + "Expected that error message contains: \"properties ... are wrong\"."
+                        + "Expected that error message contains: \"The properties ... are wrong\"."
         );
         private static final Checker HELP_PROPERTIES = new TextChecker(
                 "Available properties"

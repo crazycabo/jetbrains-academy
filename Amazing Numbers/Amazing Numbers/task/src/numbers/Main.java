@@ -3,29 +3,40 @@ package numbers;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        boolean loopCheck = true;
 
-        outputMessage("Enter a natural number:");
+        outputMessage("Welcome to Amazing Numbers!");
+        outputMessage("Supported requests:");
+        outputMessage("- enter a natural number to know its properties.");
+        outputMessage("- enter 0 to exit.");
 
-        int num = scanner.nextInt();
+        while (loopCheck) {
+            outputMessage("Enter a request: ");
+            long num = scanner.nextLong();
 
-        if (verifyNatural(num)) {
-            outputMessage("This number is not natural!");
-        } else {
-            outputProperties(num, verifyEven(num), verifyBuzz(num), verifyDuck(num));
+            if (num == 0) {
+                outputMessage("Goodbye!");
+                loopCheck = false;
+            } else if (verifyNatural(num)) {
+                outputMessage("The first parameter should be a natural number or zero.");
+            } else {
+                outputProperties(num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num));
+            }
         }
     }
 
-    private static boolean verifyNatural(int number) {
+    private static boolean verifyNatural(long number) {
         return number <= 0;
     }
 
-    private static boolean verifyEven(int number) {
+    private static boolean verifyEven(long number) {
         return number % 2 == 0;
     }
 
-    private static boolean verifyBuzz(int number) {
+    private static boolean verifyBuzz(long number) {
         String numStr = String.valueOf(number);
         boolean isDivisibleBy7 = false;
         boolean endsWith7 = false;
@@ -41,19 +52,25 @@ public class Main {
         return isDivisibleBy7 || endsWith7;
     }
 
-    private static boolean verifyDuck(int number) {
+    private static boolean verifyDuck(long number) {
         String numStr = String.valueOf(number);
 
         return numStr.lastIndexOf("0") > 0;
     }
 
-    private static void outputProperties(int number, boolean isEven, boolean isBuzz, boolean isDuck) {
+    private static boolean verifyPalindromic(long number) {
+        String numStr = String.valueOf(number);
+
+        return numStr.equals(new StringBuilder(numStr).reverse().toString());
+    }
+
+    private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic) {
         outputMessage("Properties of " + number);
         outputMessage("        even: " + isEven);
-        outputMessage("        odd: " + !isEven);
+        outputMessage("         odd: " + !isEven);
         outputMessage("        buzz: " + isBuzz);
         outputMessage("        duck: " + isDuck);
-
+        outputMessage(" palindromic: " + isPalindromic);
     }
 
     private static void outputMessage(String message) {
