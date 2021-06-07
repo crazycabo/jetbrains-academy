@@ -85,13 +85,13 @@ public class Main {
     }
 
     private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
-        outputMessage("Properties of " + number);
+        outputMessage("\nProperties of " + number);
         outputMessage("        buzz: " + isBuzz);
         outputMessage("        duck: " + isDuck);
         outputMessage(" palindromic: " + isPalindromic);
         outputMessage("      gapful: " + isGapful);
         outputMessage("        even: " + isEven);
-        outputMessage("         odd: " + !isEven);
+        outputMessage("         odd: " + !isEven + "\n");
     }
 
     private static void outputMessage(String message) {
