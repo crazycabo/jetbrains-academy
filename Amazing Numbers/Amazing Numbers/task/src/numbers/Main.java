@@ -70,7 +70,18 @@ public class Main {
     }
 
     private static boolean verifyGapful(long number) {
-        return false;
+        String numStr = String.valueOf(number);
+
+        if (numStr.length() < 3) {
+            return false; // Number is too short
+        }
+
+        String firstChar = Character.toString(numStr.charAt(0));
+        String lastChar = Character.toString(numStr.charAt(numStr.length() - 1));
+
+        long divisor = Integer.parseInt(firstChar + lastChar);
+
+        return number % divisor == 0;
     }
 
     private static void outputProperties(long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
