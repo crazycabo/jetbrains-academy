@@ -8,10 +8,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean loopCheck = true;
 
-        outputMessage("Welcome to Amazing Numbers!");
+        outputMessage("Welcome to Amazing Numbers!\n");
+
         outputMessage("Supported requests:");
         outputMessage("- enter a natural number to know its properties.");
-        outputMessage("- enter 0 to exit.");
+        outputMessage("- enter two natural numbers to obtain the properties of the list:");
+        outputMessage("  * the first parameter represents a starting number.");
+        outputMessage("  * the second parameters show how many consecutive numbers are to be processed.");
+        outputMessage("- separate the parameters with one space.");
+        outputMessage("- enter 0 to exit.\n");
 
         while (loopCheck) {
             outputMessage("Enter a request: ");
