@@ -625,5 +625,22 @@ files:
     }
   learner_created: false
 feedback_link: https://hyperskill.org/projects/184/stages/934/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    In this stage, a user can enter two numbers to print a list. The program should explain this in the help.
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Welcome to Amazing Numbers!
+
+    Supported requests:
+    - enter a natural number to know its properties.
+    - enter 0 to exit.
+    Enter a request:
+  time: Mon, 07 Jun 2021 14:35:11 UTC
 record: -1
