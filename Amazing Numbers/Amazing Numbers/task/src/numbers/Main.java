@@ -45,10 +45,10 @@ public class Main {
                 }
 
                 for (int i = 0; i < count; i++) {
-                    outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i));
+                    outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num));
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
             }
 
             outputMessage("\n");
@@ -145,6 +145,10 @@ public class Main {
                 types.add("gapful");
             }
 
+            if (isSpy) {
+                types.add("spy");
+            }
+
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
@@ -152,6 +156,7 @@ public class Main {
             outputMessage("        duck: " + isDuck);
             outputMessage(" palindromic: " + isPalindromic);
             outputMessage("      gapful: " + isGapful);
+            outputMessage("         spy: " + isSpy);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
