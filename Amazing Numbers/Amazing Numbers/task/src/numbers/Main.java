@@ -106,7 +106,23 @@ public class Main {
         return number % divisor == 0;
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
+    private static boolean verifySpy(long number) {
+        String[] stringNums = String.valueOf(number).split("");
+        long sumOfNums = 0;
+        long productOfNums = Long.parseLong(stringNums[0]);
+
+        for (String s : stringNums) {
+            sumOfNums += Long.parseLong(s);
+        }
+
+        for (int i = 1; i < stringNums.length; i++) {
+            productOfNums *= Long.parseLong(stringNums[i]);
+        }
+
+        return sumOfNums == productOfNums;
+    }
+
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
