@@ -163,7 +163,7 @@ public class Main {
                 return verifyBuzz(number);
             case "DUCK":
                 return verifyDuck(number);
-            case "PALINDROME":
+            case "PALINDROMIC":
                 return verifyPalindromic(number);
             case "GAPFUL":
                 return verifyGapful(number);
