@@ -1,6 +1,7 @@
 package numbers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,23 +38,40 @@ public class Main {
                 continue;
             }
 
-            if (inputs.length == 2) {
-                long count = Long.parseLong(inputs[1]);
+            long count;
+
+            if (inputs.length > 1) {
+                count = Long.parseLong(inputs[1]);
 
                 if (verifyNatural(count)) {
                     outputMessage("The second parameter should be a natural number.");
                     continue;
                 }
 
-                for (int i = 0; i < count; i++) {
-                    outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
+                if (inputs.length > 2) {
+                    String type = inputs[2];
+
+                    if (!checkType(type)) {
+                        outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
+                        break;
+                    }
+
+
+                } else {
+                    for (int i = 0; i < count; i++) {
+                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
+                    }
                 }
             } else {
                 outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
             }
-
-            outputMessage("\n");
         }
+    }
+
+    private static boolean checkType(String type) {
+        List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
+
+        return knownTypes.contains(type);
     }
 
     private static boolean verifyNatural(long number) {
