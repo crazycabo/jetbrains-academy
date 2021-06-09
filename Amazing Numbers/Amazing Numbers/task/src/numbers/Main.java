@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         boolean loopCheck = true;
 
@@ -38,10 +38,10 @@ public class Main {
                 continue;
             }
 
-            long count;
+            int count;
 
             if (inputs.length > 1) {
-                count = Long.parseLong(inputs[1]);
+                count = Integer.parseInt(inputs[1]);
 
                 if (verifyNatural(count)) {
                     outputMessage("The second parameter should be a natural number.");
@@ -56,7 +56,16 @@ public class Main {
                         break;
                     }
 
+                    int loopCount = count;
 
+                    while (loopCount > 0) {
+                        if (verifyType(type, num)) {
+                            outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                            loopCount--;
+                        }
+
+                        num++;
+                    }
                 } else {
                     for (int i = 0; i < count; i++) {
                         outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
@@ -65,13 +74,15 @@ public class Main {
             } else {
                 outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
             }
+
+            outputMessage(""); // Create a new line after every request.
         }
     }
 
     private static boolean checkType(String type) {
         List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
 
-        return knownTypes.contains(type);
+        return knownTypes.contains(type.toUpperCase());
     }
 
     private static boolean verifyNatural(long number) {
@@ -139,6 +150,27 @@ public class Main {
         }
 
         return sumOfNums == productOfNums;
+    }
+
+    private static boolean verifyType(String type, long number) throws Exception {
+        switch (type.toUpperCase()) {
+            case "ODD":
+                return !verifyEven(number);
+            case "EVEN":
+                return verifyEven(number);
+            case "BUZZ":
+                return verifyBuzz(number);
+            case "DUCK":
+                return verifyDuck(number);
+            case "PALINDROME":
+                return verifyPalindromic(number);
+            case "GAPFUL":
+                return verifyGapful(number);
+            case "SPY":
+                return verifySpy(number);
+            default:
+                throw new Exception("No valid type entered for verification.");
+        }
     }
 
     private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
