@@ -1,12 +1,15 @@
 package numbers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
+
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         boolean loopCheck = true;
 
@@ -17,12 +20,14 @@ public class Main {
         outputMessage("- enter two natural numbers to obtain the properties of the list:");
         outputMessage("  * the first parameter represents a starting number.");
         outputMessage("  * the second parameters show how many consecutive numbers are to be processed.");
+        outputMessage("- two natural numbers and a property to search for.");
         outputMessage("- separate the parameters with one space.");
         outputMessage("- enter 0 to exit.\n");
 
         while (loopCheck) {
             outputMessage("Enter a request: ");
             String[] inputs = scanner.nextLine().split(" ");
+            outputMessage("");
 
             long num = Long.parseLong(inputs[0]);
 
@@ -36,23 +41,50 @@ public class Main {
                 continue;
             }
 
-            if (inputs.length == 2) {
-                long count = Long.parseLong(inputs[1]);
+            int count;
+
+            if (inputs.length > 1) {
+                count = Integer.parseInt(inputs[1]);
 
                 if (verifyNatural(count)) {
                     outputMessage("The second parameter should be a natural number.");
                     continue;
                 }
 
-                for (int i = 0; i < count; i++) {
-                    outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i));
+                if (inputs.length > 2) {
+                    String type = inputs[2];
+
+                    if (!checkType(type)) {
+                        outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
+                        outputMessage("Available properties: " + knownTypes.toString());
+                        continue;
+                    }
+
+                    int loopCount = count;
+
+                    while (loopCount > 0) {
+                        if (verifyType(type, num)) {
+                            outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                            loopCount--;
+                        }
+
+                        num++;
+                    }
+                } else {
+                    for (int i = 0; i < count; i++) {
+                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
+                    }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num));
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
             }
 
-            outputMessage("\n");
+            outputMessage(""); // Create a new line after every request.
         }
+    }
+
+    private static boolean checkType(String type) {
+        return knownTypes.contains(type.toUpperCase());
     }
 
     private static boolean verifyNatural(long number) {
@@ -106,7 +138,44 @@ public class Main {
         return number % divisor == 0;
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful) {
+    private static boolean verifySpy(long number) {
+        String[] stringNums = String.valueOf(number).split("");
+        long sumOfNums = 0;
+        long productOfNums = Long.parseLong(stringNums[0]);
+
+        for (String s : stringNums) {
+            sumOfNums += Long.parseLong(s);
+        }
+
+        for (int i = 1; i < stringNums.length; i++) {
+            productOfNums *= Long.parseLong(stringNums[i]);
+        }
+
+        return sumOfNums == productOfNums;
+    }
+
+    private static boolean verifyType(String type, long number) throws Exception {
+        switch (type.toUpperCase()) {
+            case "ODD":
+                return !verifyEven(number);
+            case "EVEN":
+                return verifyEven(number);
+            case "BUZZ":
+                return verifyBuzz(number);
+            case "DUCK":
+                return verifyDuck(number);
+            case "PALINDROMIC":
+                return verifyPalindromic(number);
+            case "GAPFUL":
+                return verifyGapful(number);
+            case "SPY":
+                return verifySpy(number);
+            default:
+                throw new Exception("No valid type entered for verification.");
+        }
+    }
+
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
@@ -129,6 +198,10 @@ public class Main {
                 types.add("gapful");
             }
 
+            if (isSpy) {
+                types.add("spy");
+            }
+
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
@@ -136,6 +209,7 @@ public class Main {
             outputMessage("        duck: " + isDuck);
             outputMessage(" palindromic: " + isPalindromic);
             outputMessage("      gapful: " + isGapful);
+            outputMessage("         spy: " + isSpy);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
