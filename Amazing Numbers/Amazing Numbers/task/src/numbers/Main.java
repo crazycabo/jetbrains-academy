@@ -55,7 +55,8 @@ public class Main {
 
                     if (!checkType(type)) {
                         outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
-                        break;
+                        outputMessage("Available properties: " + knownTypes.toString());
+                        continue;
                     }
 
                     int loopCount = count;
