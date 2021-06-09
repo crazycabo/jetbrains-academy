@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
+
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         boolean loopCheck = true;
@@ -80,8 +82,6 @@ public class Main {
     }
 
     private static boolean checkType(String type) {
-        List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
-
         return knownTypes.contains(type.toUpperCase());
     }
 
