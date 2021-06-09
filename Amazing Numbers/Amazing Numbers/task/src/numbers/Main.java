@@ -27,6 +27,7 @@ public class Main {
         while (loopCheck) {
             outputMessage("Enter a request: ");
             String[] inputs = scanner.nextLine().split(" ");
+            outputMessage("");
 
             long num = Long.parseLong(inputs[0]);
 
