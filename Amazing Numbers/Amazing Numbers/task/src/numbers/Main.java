@@ -175,8 +175,8 @@ public class Main {
         }
     }
 
-    private static boolean verifySquare(double number) {
-        double s = Math.sqrt(number);
+    private static boolean verifySquare(long number) {
+        double s = Math.sqrt((double) number);
 
         return s == Math.floor(s);
     }
