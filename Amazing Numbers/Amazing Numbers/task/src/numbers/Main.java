@@ -21,6 +21,7 @@ public class Main {
         outputMessage("  * the first parameter represents a starting number.");
         outputMessage("  * the second parameters show how many consecutive numbers are to be processed.");
         outputMessage("- two natural numbers and a property to search for.");
+        outputMessage("- two natural numbers and two properties to search for.");
         outputMessage("- separate the parameters with one space.");
         outputMessage("- enter 0 to exit.\n");
 
