@@ -181,6 +181,10 @@ public class Main {
         return s == Math.floor(s);
     }
 
+    private static boolean verifySunny(long number) {
+        return verifySquare(number + 1);
+    }
+
     private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
