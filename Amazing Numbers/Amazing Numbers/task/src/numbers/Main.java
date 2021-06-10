@@ -175,6 +175,12 @@ public class Main {
         }
     }
 
+    private static boolean verifySquare(double number) {
+        double s = Math.sqrt(number);
+
+        return s == Math.floor(s);
+    }
+
     private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
