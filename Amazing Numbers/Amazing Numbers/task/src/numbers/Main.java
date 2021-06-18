@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
+    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "EVEN", "ODD");
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -68,7 +68,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num) && verifyType(type2, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
                                 loopCount--;
                             }
 
@@ -83,7 +83,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
                                 loopCount--;
                             }
 
@@ -92,11 +92,11 @@ public class Main {
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
-                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
+                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i));
                     }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
             }
 
             outputMessage(""); // Create a new line after every request.
@@ -200,12 +200,16 @@ public class Main {
                 return verifyGapful(number);
             case "SPY":
                 return verifySpy(number);
+            case "SQUARE":
+                return verifySquare(number);
+            case "SUNNY":
+                return verifySunny(number);
             default:
                 throw new Exception("No valid type entered for verification.");
         }
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
@@ -230,6 +234,14 @@ public class Main {
 
             if (isSpy) {
                 types.add("spy");
+            }
+
+            if (isSquare) {
+                types.add("square");
+            }
+
+            if (isSunny) {
+                types.add("sunny");
             }
 
             outputMessage(message.append(String.join(", ", types)).toString());
