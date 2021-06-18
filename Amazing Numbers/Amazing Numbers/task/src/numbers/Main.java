@@ -107,6 +107,10 @@ public class Main {
         return knownTypes.contains(type.toUpperCase());
     }
 
+    private static boolean checkMutuallyExclusive(List<String> types) {
+        return (types.contains("even") && types.contains("odd")) || (types.contains("duck") && types.contains("spy")) || (types.contains("sunny") && types.contains("square"));
+    }
+
     private static boolean verifyNatural(long number) {
         return number <= 0;
     }
