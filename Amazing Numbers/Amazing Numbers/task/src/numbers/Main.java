@@ -53,23 +53,42 @@ public class Main {
                 }
 
                 if (inputs.length > 2) {
-                    String type = inputs[2];
-
-                    if (!checkType(type)) {
-                        outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
-                        outputMessage("Available properties: " + knownTypes.toString());
-                        continue;
-                    }
-
                     int loopCount = count;
+                    String type = inputs[2];
+                    String type2;
 
-                    while (loopCount > 0) {
-                        if (verifyType(type, num)) {
-                            outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
-                            loopCount--;
+                    if (inputs.length > 3) {
+                        type2 = inputs[3];
+
+                        if (!checkType(type) && !checkType(type2)) {
+                            outputMessage("The property of [" + type.toUpperCase() + ", " + type2.toUpperCase() + "] is wrong.");
+                            outputMessage("Available properties: " + knownTypes.toString());
+                            continue;
                         }
 
-                        num++;
+                        while (loopCount > 0) {
+                            if (verifyType(type, num) && verifyType(type2, num)) {
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                                loopCount--;
+                            }
+
+                            num++;
+                        }
+                    } else {
+                        if (!checkType(type)) {
+                            outputMessage("The property of [" + type.toUpperCase() + "] are wrong.");
+                            outputMessage("Available properties: " + knownTypes.toString());
+                            continue;
+                        }
+
+                        while (loopCount > 0) {
+                            if (verifyType(type, num)) {
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                                loopCount--;
+                            }
+
+                            num++;
+                        }
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
