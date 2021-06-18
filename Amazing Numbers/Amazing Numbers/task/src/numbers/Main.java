@@ -174,6 +174,16 @@ public class Main {
         return sumOfNums == productOfNums;
     }
 
+    private static boolean verifySquare(long number) {
+        double s = Math.sqrt((double) number);
+
+        return s == Math.floor(s);
+    }
+
+    private static boolean verifySunny(long number) {
+        return verifySquare(number + 1);
+    }
+
     private static boolean verifyType(String type, long number) throws Exception {
         switch (type.toUpperCase()) {
             case "ODD":
@@ -193,16 +203,6 @@ public class Main {
             default:
                 throw new Exception("No valid type entered for verification.");
         }
-    }
-
-    private static boolean verifySquare(long number) {
-        double s = Math.sqrt((double) number);
-
-        return s == Math.floor(s);
-    }
-
-    private static boolean verifySunny(long number) {
-        return verifySquare(number + 1);
     }
 
     private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
