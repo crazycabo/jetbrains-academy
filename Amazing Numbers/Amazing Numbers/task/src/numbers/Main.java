@@ -256,6 +256,8 @@ public class Main {
             outputMessage(" palindromic: " + isPalindromic);
             outputMessage("      gapful: " + isGapful);
             outputMessage("         spy: " + isSpy);
+            outputMessage("      square: " + isSquare);
+            outputMessage("       sunny: " + isSunny);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
