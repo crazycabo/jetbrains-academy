@@ -76,7 +76,7 @@ public class Main {
                         }
                     } else {
                         if (!checkType(type)) {
-                            outputMessage("The property of [" + type.toUpperCase() + "] are wrong.");
+                            outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
                             outputMessage("Available properties: " + knownTypes.toString());
                             continue;
                         }
