@@ -56,31 +56,37 @@ public class Main {
                     String type = inputs[2];
 
                     if (inputs.length > 3) {
-                        String type2 = inputs[3];
+                        String[] types = Arrays.copyOfRange(inputs, 3, inputs.length);
+                        List<String> validTypes = new ArrayList<>();
+                        List<String> wrongTypes = new ArrayList<>();
 
-                        boolean type1Valid = !checkType(type);
-                        boolean type2Valid = !checkType(type2);
-
-                        if (type1Valid || type2Valid) {
-                            if (type1Valid && type2Valid) {
-                                outputMessage("The properties of [" + type.toUpperCase() + ", " + type2.toUpperCase() + "] are wrong.");
+                        for (String t : types) {
+                            if (!checkType(t)) {
+                                wrongTypes.add(t);
                             } else {
-                                String invalidType = (type1Valid) ? type : type2;
-                                outputMessage("The property of [" + invalidType + "] is wrong.");
+                                validTypes.add(t);
+                            }
+                        }
+
+                        if (wrongTypes.size() > 0) {
+                            if (wrongTypes.size() > 1) {
+                                outputMessage("The properties of [" + wrongTypes + "] are wrong.");
+                            } else {
+                                outputMessage("The property of [" + wrongTypes + "] is wrong.");
                             }
 
                             outputMessage("Available properties: " + knownTypes.toString());
                             continue;
                         }
 
-                        if (checkMutuallyExclusive(List.of(type, type2))) {
+                        if (checkMutuallyExclusive(validTypes)) {
                             outputMessage("The request contains mutually exclusive properties: []");
                             outputMessage("There are no numbers with these properties.");
                             continue;
                         }
 
                         while (loopCount > 0) {
-                            if (verifyType(type, num) && verifyType(type2, num)) {
+                            if (verifyAllTypes(validTypes, num)) {
                                 outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
                                 loopCount--;
                             }
