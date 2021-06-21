@@ -243,6 +243,16 @@ public class Main {
         }
     }
 
+    private static boolean verifyAllTypes(List<String> types, long number) throws Exception {
+        for (String type : types) {
+            if (!verifyType(type, number)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
