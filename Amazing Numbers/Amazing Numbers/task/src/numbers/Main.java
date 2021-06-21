@@ -226,6 +226,30 @@ public class Main {
         return true;
     }
 
+    private static boolean verifyHappy(long number) {
+        long currentNum = number;
+
+        do {
+            String[] numberStrings = String.valueOf(currentNum).split("");
+
+            for (String numStr : numberStrings) {
+                int num = Integer.parseInt(numStr);
+
+                currentNum += (long) num * num;
+            }
+
+            if (currentNum == 1) {
+                return true;
+            }
+        } while(currentNum != number);
+
+        return false;
+    }
+
+    private static boolean verifySad(long number) {
+        return !verifyHappy(number);
+    }
+
     private static boolean verifyType(String type, long number) throws Exception {
         switch (type.toUpperCase()) {
             case "ODD":
