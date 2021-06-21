@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "EVEN", "ODD");
+    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "EVEN", "ODD");
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -21,6 +21,7 @@ public class Main {
         outputMessage("  * the first parameter represents a starting number.");
         outputMessage("  * the second parameters show how many consecutive numbers are to be processed.");
         outputMessage("- two natural numbers and a property to search for.");
+        outputMessage("- two natural numbers and two properties to search for.");
         outputMessage("- separate the parameters with one space.");
         outputMessage("- enter 0 to exit.\n");
 
@@ -52,31 +53,64 @@ public class Main {
                 }
 
                 if (inputs.length > 2) {
+                    int loopCount = count;
                     String type = inputs[2];
 
-                    if (!checkType(type)) {
-                        outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
-                        outputMessage("Available properties: " + knownTypes.toString());
-                        continue;
-                    }
+                    if (inputs.length > 3) {
+                        String type2 = inputs[3];
 
-                    int loopCount = count;
+                        boolean type1Valid = !checkType(type);
+                        boolean type2Valid = !checkType(type2);
 
-                    while (loopCount > 0) {
-                        if (verifyType(type, num)) {
-                            outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
-                            loopCount--;
+                        if (type1Valid || type2Valid) {
+                            if (type1Valid && type2Valid) {
+                                outputMessage("The properties of [" + type.toUpperCase() + ", " + type2.toUpperCase() + "] are wrong.");
+                            } else {
+                                String invalidType = (type1Valid) ? type : type2;
+                                outputMessage("The property of [" + invalidType + "] is wrong.");
+                            }
+
+                            outputMessage("Available properties: " + knownTypes.toString());
+                            continue;
                         }
 
-                        num++;
+                        if (checkMutuallyExclusive(List.of(type, type2))) {
+                            outputMessage("The request contains mutually exclusive properties: []");
+                            outputMessage("There are no numbers with these properties.");
+                            continue;
+                        }
+
+                        while (loopCount > 0) {
+                            if (verifyType(type, num) && verifyType(type2, num)) {
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
+                                loopCount--;
+                            }
+
+                            num++;
+                        }
+                    } else {
+                        if (!checkType(type)) {
+                            outputMessage("The property of [" + type.toUpperCase() + "] is wrong.");
+                            outputMessage("Available properties: " + knownTypes.toString());
+                            continue;
+                        }
+
+                        while (loopCount > 0) {
+                            if (verifyType(type, num)) {
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
+                                loopCount--;
+                            }
+
+                            num++;
+                        }
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
-                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i));
+                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i));
                     }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num));
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
             }
 
             outputMessage(""); // Create a new line after every request.
@@ -85,6 +119,10 @@ public class Main {
 
     private static boolean checkType(String type) {
         return knownTypes.contains(type.toUpperCase());
+    }
+
+    private static boolean checkMutuallyExclusive(List<String> types) {
+        return (types.contains("even") && types.contains("odd")) || (types.contains("duck") && types.contains("spy")) || (types.contains("sunny") && types.contains("square"));
     }
 
     private static boolean verifyNatural(long number) {
@@ -154,6 +192,16 @@ public class Main {
         return sumOfNums == productOfNums;
     }
 
+    private static boolean verifySquare(long number) {
+        double s = Math.sqrt((double) number);
+
+        return s == Math.floor(s);
+    }
+
+    private static boolean verifySunny(long number) {
+        return verifySquare(number + 1);
+    }
+
     private static boolean verifyType(String type, long number) throws Exception {
         switch (type.toUpperCase()) {
             case "ODD":
@@ -170,12 +218,16 @@ public class Main {
                 return verifyGapful(number);
             case "SPY":
                 return verifySpy(number);
+            case "SQUARE":
+                return verifySquare(number);
+            case "SUNNY":
+                return verifySunny(number);
             default:
                 throw new Exception("No valid type entered for verification.");
         }
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy) {
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
@@ -202,6 +254,14 @@ public class Main {
                 types.add("spy");
             }
 
+            if (isSquare) {
+                types.add("square");
+            }
+
+            if (isSunny) {
+                types.add("sunny");
+            }
+
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
@@ -210,6 +270,8 @@ public class Main {
             outputMessage(" palindromic: " + isPalindromic);
             outputMessage("      gapful: " + isGapful);
             outputMessage("         spy: " + isSpy);
+            outputMessage("      square: " + isSquare);
+            outputMessage("       sunny: " + isSunny);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
