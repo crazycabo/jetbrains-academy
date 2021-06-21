@@ -70,9 +70,9 @@ public class Main {
 
                         if (wrongTypes.size() > 0) {
                             if (wrongTypes.size() > 1) {
-                                outputMessage("The properties of [" + wrongTypes + "] are wrong.");
+                                outputMessage("The properties of " + wrongTypes + " are wrong.");
                             } else {
-                                outputMessage("The property of [" + wrongTypes + "] is wrong.");
+                                outputMessage("The property of " + wrongTypes + " is wrong.");
                             }
 
                             outputMessage("Available properties: " + knownTypes.toString());
