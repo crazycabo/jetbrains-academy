@@ -74,6 +74,12 @@ public class Main {
                             continue;
                         }
 
+                        if (checkMutuallyExclusive(List.of(type, type2))) {
+                            outputMessage("The request contains mutually exclusive properties: []");
+                            outputMessage("There are no numbers with these properties.");
+                            continue;
+                        }
+
                         while (loopCount > 0) {
                             if (verifyType(type, num) && verifyType(type2, num)) {
                                 outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
