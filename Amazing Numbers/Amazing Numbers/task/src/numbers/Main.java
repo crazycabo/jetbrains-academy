@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "EVEN", "ODD");
+    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "JUMPING", "EVEN", "ODD");
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -81,7 +81,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num) && verifyType(type2, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
                                 loopCount--;
                             }
 
@@ -96,7 +96,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
+                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
                                 loopCount--;
                             }
 
@@ -105,11 +105,11 @@ public class Main {
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
-                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i));
+                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i), verifyJumping(num+i));
                     }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num));
+                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
             }
 
             outputMessage(""); // Create a new line after every request.
@@ -201,6 +201,10 @@ public class Main {
         return verifySquare(number + 1);
     }
 
+    private static boolean verifyJumping(long number) {
+        return true;
+    }
+
     private static boolean verifyType(String type, long number) throws Exception {
         switch (type.toUpperCase()) {
             case "ODD":
@@ -221,12 +225,14 @@ public class Main {
                 return verifySquare(number);
             case "SUNNY":
                 return verifySunny(number);
+            case "JUMPING":
+                return verifyJumping(number);
             default:
                 throw new Exception("No valid type entered for verification.");
         }
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny) {
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
@@ -261,6 +267,10 @@ public class Main {
                 types.add("sunny");
             }
 
+            if (isJumping) {
+                types.add("jumping");
+            }
+
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
@@ -271,6 +281,7 @@ public class Main {
             outputMessage("         spy: " + isSpy);
             outputMessage("      square: " + isSquare);
             outputMessage("       sunny: " + isSunny);
+            outputMessage("     jumping: " + isJumping);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
