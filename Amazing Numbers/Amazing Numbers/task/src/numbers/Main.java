@@ -56,7 +56,7 @@ public class Main {
                     String type = inputs[2];
 
                     if (inputs.length > 3) {
-                        String[] types = Arrays.copyOfRange(inputs, 3, inputs.length);
+                        String[] types = Arrays.copyOfRange(inputs, 2, inputs.length);
                         List<String> validTypes = new ArrayList<>();
                         List<String> wrongTypes = new ArrayList<>();
 
