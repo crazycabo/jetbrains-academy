@@ -55,13 +55,21 @@ public class Main {
                 if (inputs.length > 2) {
                     int loopCount = count;
                     String type = inputs[2];
-                    String type2;
 
                     if (inputs.length > 3) {
-                        type2 = inputs[3];
+                        String type2 = inputs[3];
 
-                        if (!checkType(type) && !checkType(type2)) {
-                            outputMessage("The property of [" + type.toUpperCase() + ", " + type2.toUpperCase() + "] is wrong.");
+                        boolean type1Valid = !checkType(type);
+                        boolean type2Valid = !checkType(type2);
+
+                        if (type1Valid || type2Valid) {
+                            if (type1Valid && type2Valid) {
+                                outputMessage("The properties of [" + type.toUpperCase() + ", " + type2.toUpperCase() + "] are wrong.");
+                            } else {
+                                String invalidType = (type1Valid) ? type : type2;
+                                outputMessage("The property of [" + invalidType + "] is wrong.");
+                            }
+
                             outputMessage("Available properties: " + knownTypes.toString());
                             continue;
                         }
