@@ -210,11 +210,15 @@ public class Main {
     private static boolean verifyJumping(long number) {
         String[] numberStrings = String.valueOf(number).split("");
 
+        if (numberStrings.length == 1) {
+            return true;
+        }
+
         for (int i = 0; i < numberStrings.length - 1; i++) {
             int num1 = Integer.parseInt(numberStrings[i]);
             int num2 = Integer.parseInt(numberStrings[i + 1]);
 
-            if (num1 + 1 != num2 || num1 - 1 != num2 ) {
+            if (num1 + 1 != num2 && num1 - 1 != num2) {
                 return false;
             }
         }
