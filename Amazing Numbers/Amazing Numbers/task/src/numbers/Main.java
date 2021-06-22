@@ -143,11 +143,11 @@ public class Main {
     private static boolean checkMutuallyExclusive(List<String> types) {
         List<String> sanitizedTypes = new ArrayList<>();
 
+        // Todo: Check if a property exists with its direct opposite. Return true if so.
+
         for (String type : types) {
             sanitizedTypes.add(type.replaceFirst("-", ""));
         }
-
-        // Todo: Check if the same type appears more than once. Return true if so.
 
         boolean evenOdd = sanitizedTypes.contains("even") && sanitizedTypes.contains("odd");
         boolean duckSpy = sanitizedTypes.contains("duck") && sanitizedTypes.contains("spy");
