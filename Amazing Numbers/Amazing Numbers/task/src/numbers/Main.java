@@ -251,20 +251,25 @@ public class Main {
         }
 
         long currentNum = number;
+        int count = 0;
 
-        do {
+        while (count <= 1000) {
             String[] numberStrings = String.valueOf(currentNum).split("");
 
+            int total = 0;
             for (String numStr : numberStrings) {
                 int num = Integer.parseInt(numStr);
 
-                currentNum += (long) num * num;
+                total += (long) num * num;
             }
+
+            currentNum = total;
+            count++;
 
             if (currentNum == 1) {
                 return true;
             }
-        } while(currentNum != number);
+        }
 
         return false;
     }
