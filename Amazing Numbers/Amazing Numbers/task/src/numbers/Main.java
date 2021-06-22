@@ -7,7 +7,20 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "JUMPING", "EVEN", "ODD");
+    static List<String> knownTypes = Arrays.asList(
+            "BUZZ",
+            "DUCK",
+            "PALINDROMIC",
+            "GAPFUL",
+            "SPY",
+            "SQUARE",
+            "SUNNY",
+            "JUMPING",
+            "HAPPY",
+            "SAD",
+            "EVEN",
+            "ODD"
+    );
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
