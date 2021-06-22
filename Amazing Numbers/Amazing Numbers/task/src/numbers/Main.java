@@ -101,7 +101,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyAllTypes(validTypes, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                                outputProperties(true, num);
                                 loopCount--;
                             }
 
@@ -116,7 +116,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                                outputProperties(true, num);
                                 loopCount--;
                             }
 
@@ -125,11 +125,11 @@ public class Main {
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
-                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i), verifyJumping(num+i));
+                        outputProperties(true, num+i);
                     }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                outputProperties(false, num);
             }
 
             outputMessage(""); // Create a new line after every request.
@@ -305,68 +305,68 @@ public class Main {
         return true;
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping, boolean isHappy, boolean isSad) {
+    private static void outputProperties(boolean isSimple, long number) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
 
-            types.add((isEven) ? "even" : "odd");
+            types.add((verifyEven(number)) ? "even" : "odd");
 
-            if (isBuzz) {
+            if (verifyBuzz(number)) {
                 types.add("buzz");
             }
 
-            if (isDuck) {
+            if (verifyDuck(number)) {
                 types.add("duck");
             }
 
-            if (isPalindromic) {
+            if (verifyPalindromic(number)) {
                 types.add("palindromic");
             }
 
-            if (isGapful) {
+            if (verifyGapful(number)) {
                 types.add("gapful");
             }
 
-            if (isSpy) {
+            if (verifySpy(number)) {
                 types.add("spy");
             }
 
-            if (isSquare) {
+            if (verifySquare(number)) {
                 types.add("square");
             }
 
-            if (isSunny) {
+            if (verifySunny(number)) {
                 types.add("sunny");
             }
 
-            if (isJumping) {
+            if (verifyJumping(number)) {
                 types.add("jumping");
             }
 
-            if (isHappy) {
+            if (verifyHappy(number)) {
                 types.add("happy");
             }
 
-            if (isSad) {
+            if (verifySad(number)) {
                 types.add("sad");
             }
 
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
-            outputMessage("        buzz: " + isBuzz);
-            outputMessage("        duck: " + isDuck);
-            outputMessage(" palindromic: " + isPalindromic);
-            outputMessage("      gapful: " + isGapful);
-            outputMessage("         spy: " + isSpy);
-            outputMessage("      square: " + isSquare);
-            outputMessage("       sunny: " + isSunny);
-            outputMessage("     jumping: " + isJumping);
-            outputMessage("       happy: " + isHappy);
-            outputMessage("         sad: " + isSad);
-            outputMessage("        even: " + isEven);
-            outputMessage("         odd: " + !isEven);
+            outputMessage("        buzz: " + verifyBuzz(number));
+            outputMessage("        duck: " + verifyDuck(number));
+            outputMessage(" palindromic: " + verifyPalindromic(number));
+            outputMessage("      gapful: " + verifyGapful(number));
+            outputMessage("         spy: " + verifySpy(number));
+            outputMessage("      square: " + verifySquare(number));
+            outputMessage("       sunny: " + verifySunny(number));
+            outputMessage("     jumping: " + verifyJumping(number));
+            outputMessage("       happy: " + verifyHappy(number));
+            outputMessage("         sad: " + verifySad(number));
+            outputMessage("        even: " + verifyEven(number));
+            outputMessage("         odd: " + !verifyEven(number));
         }
     }
 
