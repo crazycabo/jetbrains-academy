@@ -137,7 +137,7 @@ public class Main {
     }
 
     private static boolean checkType(String type) {
-        return knownTypes.contains(type.toUpperCase());
+        return knownTypes.contains(type.toUpperCase().replaceFirst("-", ""));
     }
 
     private static boolean checkMutuallyExclusive(List<String> types) {
