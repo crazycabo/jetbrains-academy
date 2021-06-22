@@ -246,6 +246,10 @@ public class Main {
     }
 
     private static boolean verifyHappy(long number) {
+        if (number == 1) {
+            return true;
+        }
+
         long currentNum = number;
 
         do {
