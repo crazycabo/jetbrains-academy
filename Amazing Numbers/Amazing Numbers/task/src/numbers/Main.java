@@ -275,34 +275,57 @@ public class Main {
     }
 
     private static boolean verifyType(String type, long number) throws Exception {
+        boolean isNegative = false;
+
+        if (type.startsWith("-")) {
+            type = type.replaceFirst("-", "");
+            isNegative = true;
+        }
+
+        boolean validation;
+
         switch (type.toUpperCase()) {
             case "ODD":
-                return !verifyEven(number);
+                validation = !verifyEven(number);
+                break;
             case "EVEN":
-                return verifyEven(number);
+                validation = verifyEven(number);
+                break;
             case "BUZZ":
-                return verifyBuzz(number);
+                validation = verifyBuzz(number);
+                break;
             case "DUCK":
-                return verifyDuck(number);
+                validation = verifyDuck(number);
+                break;
             case "PALINDROMIC":
-                return verifyPalindromic(number);
+                validation = verifyPalindromic(number);
+                break;
             case "GAPFUL":
-                return verifyGapful(number);
+                validation = verifyGapful(number);
+                break;
             case "SPY":
-                return verifySpy(number);
+                validation = verifySpy(number);
+                break;
             case "SQUARE":
-                return verifySquare(number);
+                validation = verifySquare(number);
+                break;
             case "SUNNY":
-                return verifySunny(number);
+                validation = verifySunny(number);
+                break;
             case "JUMPING":
-                return verifyJumping(number);
+                validation = verifyJumping(number);
+                break;
             case "HAPPY":
-                return verifyHappy(number);
+                validation = verifyHappy(number);
+                break;
             case "SAD":
-                return !verifyHappy(number);
+                validation = !verifyHappy(number);
+                break;
             default:
                 throw new Exception("No valid type entered for verification.");
         }
+
+        return isNegative != validation;
     }
 
     private static boolean verifyAllTypes(List<String> types, long number) throws Exception {
