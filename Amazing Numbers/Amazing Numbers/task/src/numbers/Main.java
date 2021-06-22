@@ -2,7 +2,9 @@ package numbers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -134,6 +136,22 @@ public class Main {
 
             outputMessage(""); // Create a new line after every request.
         }
+    }
+
+    private static Map<String, Boolean> createParameterMap(String[] types) {
+        Map<String, Boolean> typeMap = new HashMap<>();
+
+        for (String type : types) {
+            boolean isNegative = type.startsWith("-");
+
+            if (isNegative) {
+                typeMap.put(type.replaceFirst("-", ""), false);
+            } else {
+                typeMap.put(type, true);
+            }
+        }
+
+        return typeMap;
     }
 
     private static boolean checkType(String type) {
