@@ -265,10 +265,6 @@ public class Main {
         return false;
     }
 
-    private static boolean verifySad(long number) {
-        return !verifyHappy(number);
-    }
-
     private static boolean verifyType(String type, long number) throws Exception {
         switch (type.toUpperCase()) {
             case "ODD":
@@ -294,7 +290,7 @@ public class Main {
             case "HAPPY":
                 return verifyHappy(number);
             case "SAD":
-                return verifySad(number);
+                return !verifyHappy(number);
             default:
                 throw new Exception("No valid type entered for verification.");
         }
@@ -353,7 +349,7 @@ public class Main {
                 types.add("happy");
             }
 
-            if (verifySad(number)) {
+            if (!verifyHappy(number)) {
                 types.add("sad");
             }
 
@@ -369,7 +365,7 @@ public class Main {
             outputMessage("       sunny: " + verifySunny(number));
             outputMessage("     jumping: " + verifyJumping(number));
             outputMessage("       happy: " + verifyHappy(number));
-            outputMessage("         sad: " + verifySad(number));
+            outputMessage("         sad: " + !verifyHappy(number));
             outputMessage("        even: " + verifyEven(number));
             outputMessage("         odd: " + !verifyEven(number));
         }
