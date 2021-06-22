@@ -273,6 +273,10 @@ public class Main {
                 return verifySunny(number);
             case "JUMPING":
                 return verifyJumping(number);
+            case "HAPPY":
+                return verifyHappy(number);
+            case "SAD":
+                return verifySad(number);
             default:
                 throw new Exception("No valid type entered for verification.");
         }
@@ -288,7 +292,7 @@ public class Main {
         return true;
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping) {
+    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping, boolean isHappy, boolean isSad) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
@@ -327,6 +331,14 @@ public class Main {
                 types.add("jumping");
             }
 
+            if (isHappy) {
+                types.add("happy");
+            }
+
+            if (isSad) {
+                types.add("sad");
+            }
+
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
@@ -338,6 +350,8 @@ public class Main {
             outputMessage("      square: " + isSquare);
             outputMessage("       sunny: " + isSunny);
             outputMessage("     jumping: " + isJumping);
+            outputMessage("       happy: " + isHappy);
+            outputMessage("         sad: " + isSad);
             outputMessage("        even: " + isEven);
             outputMessage("         odd: " + !isEven);
         }
