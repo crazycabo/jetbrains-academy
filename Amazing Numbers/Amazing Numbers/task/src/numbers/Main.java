@@ -141,10 +141,18 @@ public class Main {
     }
 
     private static boolean checkMutuallyExclusive(List<String> types) {
-        boolean evenOdd = types.contains("even") && types.contains("odd");
-        boolean duckSpy = types.contains("duck") && types.contains("spy");
-        boolean sunnySquare = types.contains("sunny") && types.contains("square");
-        boolean happySad = types.contains("happy") && types.contains("sad");
+        List<String> sanitizedTypes = new ArrayList<>();
+
+        for (String type : types) {
+            sanitizedTypes.add(type.replaceFirst("-", ""));
+        }
+
+        // Todo: Check if the same type appears more than once. Return true if so.
+
+        boolean evenOdd = sanitizedTypes.contains("even") && sanitizedTypes.contains("odd");
+        boolean duckSpy = sanitizedTypes.contains("duck") && sanitizedTypes.contains("spy");
+        boolean sunnySquare = sanitizedTypes.contains("sunny") && sanitizedTypes.contains("square");
+        boolean happySad = sanitizedTypes.contains("happy") && sanitizedTypes.contains("sad");
 
         return evenOdd || duckSpy || sunnySquare || happySad;
     }
