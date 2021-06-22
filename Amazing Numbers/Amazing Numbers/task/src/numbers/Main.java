@@ -141,7 +141,12 @@ public class Main {
     }
 
     private static boolean checkMutuallyExclusive(List<String> types) {
-        return (types.contains("even") && types.contains("odd")) || (types.contains("duck") && types.contains("spy")) || (types.contains("sunny") && types.contains("square"));
+        boolean evenOdd = types.contains("even") && types.contains("odd");
+        boolean duckSpy = types.contains("duck") && types.contains("spy");
+        boolean sunnySquare = types.contains("sunny") && types.contains("square");
+        boolean happySad = types.contains("happy") && types.contains("sad");
+
+        return evenOdd || duckSpy || sunnySquare || happySad;
     }
 
     private static boolean verifyNatural(long number) {
