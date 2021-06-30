@@ -2,12 +2,27 @@ package numbers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList("BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SQUARE", "SUNNY", "JUMPING", "EVEN", "ODD");
+    static final List<String> knownTypes = Arrays.asList(
+            "BUZZ",
+            "DUCK",
+            "PALINDROMIC",
+            "GAPFUL",
+            "SPY",
+            "SQUARE",
+            "SUNNY",
+            "JUMPING",
+            "HAPPY",
+            "SAD",
+            "EVEN",
+            "ODD"
+    );
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -21,6 +36,7 @@ public class Main {
         outputMessage("  * the first parameter represents a starting number.");
         outputMessage("  * the second parameters show how many consecutive numbers are to be processed.");
         outputMessage("- two natural numbers and properties to search for.");
+        outputMessage("- a property preceded by minus must not be present in numbers.");
         outputMessage("- separate the parameters with one space.");
         outputMessage("- enter 0 to exit.\n");
 
@@ -81,13 +97,13 @@ public class Main {
 
                         if (checkMutuallyExclusive(validTypes)) {
                             outputMessage("The request contains mutually exclusive properties: []");
-                            outputMessage("There are no numbers with these properties.");
+                            outputMessage("There are no numbers with these properties.\n");
                             continue;
                         }
 
                         while (loopCount > 0) {
                             if (verifyAllTypes(validTypes, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                                outputProperties(true, num);
                                 loopCount--;
                             }
 
@@ -102,7 +118,7 @@ public class Main {
 
                         while (loopCount > 0) {
                             if (verifyType(type, num)) {
-                                outputProperties(true, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                                outputProperties(true, num);
                                 loopCount--;
                             }
 
@@ -111,23 +127,64 @@ public class Main {
                     }
                 } else {
                     for (int i = 0; i < count; i++) {
-                        outputProperties(true, num+i, verifyEven(num+i), verifyBuzz(num+i), verifyDuck(num+i), verifyPalindromic(num+i), verifyGapful(num+i), verifySpy(num+i), verifySquare(num+i), verifySunny(num+i), verifyJumping(num+i));
+                        outputProperties(true, num+i);
                     }
                 }
             } else {
-                outputProperties(false, num, verifyEven(num), verifyBuzz(num), verifyDuck(num), verifyPalindromic(num), verifyGapful(num), verifySpy(num), verifySquare(num), verifySunny(num), verifyJumping(num));
+                outputProperties(false, num);
             }
 
             outputMessage(""); // Create a new line after every request.
         }
     }
 
+    private static Map<String, Boolean> createParameterMap(String[] types) {
+        Map<String, Boolean> typeMap = new HashMap<>();
+
+        for (String type : types) {
+            boolean isNegative = type.startsWith("-");
+
+            if (isNegative) {
+                typeMap.put(type.replaceFirst("-", ""), false);
+            } else {
+                typeMap.put(type, true);
+            }
+        }
+
+        return typeMap;
+    }
+
     private static boolean checkType(String type) {
-        return knownTypes.contains(type.toUpperCase());
+        return knownTypes.contains(type.toUpperCase().replaceFirst("-", ""));
     }
 
     private static boolean checkMutuallyExclusive(List<String> types) {
-        return (types.contains("even") && types.contains("odd")) || (types.contains("duck") && types.contains("spy")) || (types.contains("sunny") && types.contains("square"));
+        Map<String, Boolean> mappedTypes = createParameterMap(types.toArray(new String[0]));
+        String[][] exclusivePairs = {{"even", "odd"},{"duck", "spy"}, {"sunny", "square"}, {"happy", "sad"}};
+
+        // Check if an exclusive pair exists and types have same sign.
+        for (String[] pair : exclusivePairs) {
+
+            boolean containsPair = mappedTypes.containsKey(pair[0]) && mappedTypes.containsKey(pair[1]);
+
+            if (containsPair) {
+
+                if (mappedTypes.get(pair[0]) == mappedTypes.get(pair[1])) {
+                    return true;
+                }
+            }
+        }
+
+        // Check if same types exist with different signs.
+        for (String type : types) {
+            for (String type2 : types) {
+                if (type2.matches("-" + type)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static boolean verifyNatural(long number) {
@@ -226,35 +283,106 @@ public class Main {
         return true;
     }
 
+    private static boolean verifyHappy(long number) {
+        if (number == 1) {
+            return true;
+        }
+
+        long currentNum = number;
+        int count = 0;
+
+        while (count <= 1000) {
+            String[] numberStrings = String.valueOf(currentNum).split("");
+
+            int total = 0;
+            for (String numStr : numberStrings) {
+                int num = Integer.parseInt(numStr);
+
+                total += (long) num * num;
+            }
+
+            currentNum = total;
+            count++;
+
+            if (currentNum == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private static boolean verifyType(String type, long number) throws Exception {
+        boolean isNegative = false;
+
+        if (checkNegativeType(type)) {
+            type = removeNegativeSign(type);
+            isNegative = true;
+        }
+
+        boolean validation;
+
         switch (type.toUpperCase()) {
             case "ODD":
-                return !verifyEven(number);
+                validation = !verifyEven(number);
+                break;
             case "EVEN":
-                return verifyEven(number);
+                validation = verifyEven(number);
+                break;
             case "BUZZ":
-                return verifyBuzz(number);
+                validation = verifyBuzz(number);
+                break;
             case "DUCK":
-                return verifyDuck(number);
+                validation = verifyDuck(number);
+                break;
             case "PALINDROMIC":
-                return verifyPalindromic(number);
+                validation = verifyPalindromic(number);
+                break;
             case "GAPFUL":
-                return verifyGapful(number);
+                validation = verifyGapful(number);
+                break;
             case "SPY":
-                return verifySpy(number);
+                validation = verifySpy(number);
+                break;
             case "SQUARE":
-                return verifySquare(number);
+                validation = verifySquare(number);
+                break;
             case "SUNNY":
-                return verifySunny(number);
+                validation = verifySunny(number);
+                break;
             case "JUMPING":
-                return verifyJumping(number);
+                validation = verifyJumping(number);
+                break;
+            case "HAPPY":
+                validation = verifyHappy(number);
+                break;
+            case "SAD":
+                validation = !verifyHappy(number);
+                break;
             default:
                 throw new Exception("No valid type entered for verification.");
         }
+
+        return isNegative != validation;
     }
 
     private static boolean verifyAllTypes(List<String> types, long number) throws Exception {
+
+        int negativeTypeCount = 0;
         for (String type : types) {
+            if (checkNegativeType(type)) {
+                negativeTypeCount++;
+            }
+        }
+
+        List<String> sanitizedTypes;
+        if (negativeTypeCount == types.size()) {
+            return true;
+        } else {
+            sanitizedTypes = types;
+        }
+
+        for (String type : sanitizedTypes) {
             if (!verifyType(type, number)) {
                 return false;
             }
@@ -263,59 +391,77 @@ public class Main {
         return true;
     }
 
-    private static void outputProperties(boolean isSimple, long number, boolean isEven, boolean isBuzz, boolean isDuck, boolean isPalindromic, boolean isGapful, boolean isSpy, boolean isSquare, boolean isSunny, boolean isJumping) {
+    private static void outputProperties(boolean isSimple, long number) {
         if (isSimple) {
             List<String> types = new ArrayList<>();
             StringBuilder message = new StringBuilder(number + " is ");
 
-            types.add((isEven) ? "even" : "odd");
+            types.add((verifyEven(number)) ? "even" : "odd");
 
-            if (isBuzz) {
+            if (verifyBuzz(number)) {
                 types.add("buzz");
             }
 
-            if (isDuck) {
+            if (verifyDuck(number)) {
                 types.add("duck");
             }
 
-            if (isPalindromic) {
+            if (verifyPalindromic(number)) {
                 types.add("palindromic");
             }
 
-            if (isGapful) {
+            if (verifyGapful(number)) {
                 types.add("gapful");
             }
 
-            if (isSpy) {
+            if (verifySpy(number)) {
                 types.add("spy");
             }
 
-            if (isSquare) {
+            if (verifySquare(number)) {
                 types.add("square");
             }
 
-            if (isSunny) {
+            if (verifySunny(number)) {
                 types.add("sunny");
             }
 
-            if (isJumping) {
+            if (verifyJumping(number)) {
                 types.add("jumping");
+            }
+
+            if (verifyHappy(number)) {
+                types.add("happy");
+            }
+
+            if (!verifyHappy(number)) {
+                types.add("sad");
             }
 
             outputMessage(message.append(String.join(", ", types)).toString());
         } else {
             outputMessage("\nProperties of " + number);
-            outputMessage("        buzz: " + isBuzz);
-            outputMessage("        duck: " + isDuck);
-            outputMessage(" palindromic: " + isPalindromic);
-            outputMessage("      gapful: " + isGapful);
-            outputMessage("         spy: " + isSpy);
-            outputMessage("      square: " + isSquare);
-            outputMessage("       sunny: " + isSunny);
-            outputMessage("     jumping: " + isJumping);
-            outputMessage("        even: " + isEven);
-            outputMessage("         odd: " + !isEven);
+            outputMessage("        buzz: " + verifyBuzz(number));
+            outputMessage("        duck: " + verifyDuck(number));
+            outputMessage(" palindromic: " + verifyPalindromic(number));
+            outputMessage("      gapful: " + verifyGapful(number));
+            outputMessage("         spy: " + verifySpy(number));
+            outputMessage("      square: " + verifySquare(number));
+            outputMessage("       sunny: " + verifySunny(number));
+            outputMessage("     jumping: " + verifyJumping(number));
+            outputMessage("       happy: " + verifyHappy(number));
+            outputMessage("         sad: " + !verifyHappy(number));
+            outputMessage("        even: " + verifyEven(number));
+            outputMessage("         odd: " + !verifyEven(number));
         }
+    }
+
+    private static boolean checkNegativeType(String type) {
+        return type.startsWith("-");
+    }
+
+    private static String removeNegativeSign(String type) {
+        return type.replaceFirst("-", "");
     }
 
     private static void outputMessage(String message) {
