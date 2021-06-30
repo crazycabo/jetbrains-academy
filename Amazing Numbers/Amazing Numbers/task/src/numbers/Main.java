@@ -429,6 +429,14 @@ public class Main {
         }
     }
 
+    private static boolean checkNegativeType(String type) {
+        return type.startsWith("-");
+    }
+
+    private static String removeNegativeSign(String type) {
+        return type.replaceFirst("-", "");
+    }
+
     private static void outputMessage(String message) {
         System.out.println(message);
     }
