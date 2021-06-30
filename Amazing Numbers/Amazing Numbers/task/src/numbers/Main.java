@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    static List<String> knownTypes = Arrays.asList(
+    static final List<String> knownTypes = Arrays.asList(
             "BUZZ",
             "DUCK",
             "PALINDROMIC",
