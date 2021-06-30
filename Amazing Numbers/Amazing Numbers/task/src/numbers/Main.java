@@ -159,20 +159,32 @@ public class Main {
     }
 
     private static boolean checkMutuallyExclusive(List<String> types) {
-        List<String> sanitizedTypes = new ArrayList<>();
+        Map<String, Boolean> mappedTypes = createParameterMap(types.toArray(new String[0]));
+        String[][] exclusivePairs = {{"even", "odd"},{"duck", "spy"}, {"sunny", "square"}, {"happy", "sad"}};
 
-        // Todo: Check if a property exists with its direct opposite. Return true if so.
+        // Check if an exclusive pair exists and types have same sign.
+        for (String[] pair : exclusivePairs) {
 
-        for (String type : types) {
-            sanitizedTypes.add(type.replaceFirst("-", ""));
+            boolean containsPair = mappedTypes.containsKey(pair[0]) && mappedTypes.containsKey(pair[1]);
+
+            if (containsPair) {
+
+                if (mappedTypes.get(pair[0]) == mappedTypes.get(pair[1])) {
+                    return true;
+                }
+            }
         }
 
-        boolean evenOdd = sanitizedTypes.contains("even") && sanitizedTypes.contains("odd");
-        boolean duckSpy = sanitizedTypes.contains("duck") && sanitizedTypes.contains("spy");
-        boolean sunnySquare = sanitizedTypes.contains("sunny") && sanitizedTypes.contains("square");
-        boolean happySad = sanitizedTypes.contains("happy") && sanitizedTypes.contains("sad");
+        // Check if same types exist with different signs.
+        for (String type : types) {
+            for (String type2 : types) {
+                if (type2.matches("-" + type)) {
+                    return true;
+                }
+            }
+        }
 
-        return evenOdd || duckSpy || sunnySquare || happySad;
+        return false;
     }
 
     private static boolean verifyNatural(long number) {
@@ -303,8 +315,8 @@ public class Main {
     private static boolean verifyType(String type, long number) throws Exception {
         boolean isNegative = false;
 
-        if (type.startsWith("-")) {
-            type = type.replaceFirst("-", "");
+        if (checkNegativeType(type)) {
+            type = removeNegativeSign(type);
             isNegative = true;
         }
 
@@ -355,7 +367,22 @@ public class Main {
     }
 
     private static boolean verifyAllTypes(List<String> types, long number) throws Exception {
+
+        int negativeTypeCount = 0;
         for (String type : types) {
+            if (checkNegativeType(type)) {
+                negativeTypeCount++;
+            }
+        }
+
+        List<String> sanitizedTypes;
+        if (negativeTypeCount == types.size()) {
+            return true;
+        } else {
+            sanitizedTypes = types;
+        }
+
+        for (String type : sanitizedTypes) {
             if (!verifyType(type, number)) {
                 return false;
             }
