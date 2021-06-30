@@ -97,7 +97,7 @@ public class Main {
 
                         if (checkMutuallyExclusive(validTypes)) {
                             outputMessage("The request contains mutually exclusive properties: []");
-                            outputMessage("There are no numbers with these properties.");
+                            outputMessage("There are no numbers with these properties.\n");
                             continue;
                         }
 
