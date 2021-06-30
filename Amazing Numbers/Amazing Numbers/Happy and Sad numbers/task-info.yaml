@@ -928,19 +928,9 @@ files:
     }
   learner_created: false
 feedback_link: https://hyperskill.org/projects/184/stages/938/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #74\n\nExpected 16 non blank lines but actual output\
-    \ contains 3 lines.\n\nPlease find below the output of your program during this\
-    \ failed test.\nNote that the &#39;&gt;&#39; character indicates the beginning\
-    \ of the input line.\n\n---\n\nWelcome to Amazing Numbers!\n\nSupported requests:\n\
-    - enter a natural number to know its properties.\n- enter two natural numbers\
-    \ to obtain the properties of the list:\n  * the first parameter represents a\
-    \ starting number.\n  * the second parameters show how many consecutive numbers\
-    \ are to be processed.\n- two natural numbers and properties to search for.\n\
-    - a property preceded by minus must not be present in numbers.\n- separate the\
-    \ parameters with one space.\n- enter 0 to exit.\n\nEnter a request: \n&gt; 1\
-    \ 15 odd spy -duck spy buzz\n\nThe request contains mutually exclusive properties:\
-    \ []\nThere are no numbers with these properties.\nEnter a request:"
-  time: Thu, 24 Jun 2021 15:56:22 UTC
+  message: Well done! You finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: Wed, 30 Jun 2021 03:12:14 UTC
 record: -1
