@@ -12,17 +12,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        printMessage("Please, enter the secret code's length:");
-
         Scanner scanner = new Scanner(System.in);
 
+        printMessage("Input the length of the secret code:");
         int length = scanner.nextInt();
-        while (length > 10) {
-            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
-            length = scanner.nextInt();
-        }
 
-        secretCode = generateNewCode(length);
+        printMessage("Input the number of possible symbols in the code:");
+        int symbolCount = scanner.nextInt();
+
+//        while (length > 10) {
+//            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
+//            length = scanner.nextInt();
+//        }
+
+        secretCode = generateNewCode(length, symbolCount);
 
         printMessage("Okay, let's start a game!");
 
@@ -75,16 +78,27 @@ public class Main {
         }
     }
 
-    private static String generateNewCode(int length) {
-        List<Integer> allNums = new ArrayList<>(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+    private static String generateNewCode(int length, int symbolCount) {
+        List<Character> allNums = new ArrayList<>(List.of(
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
         StringBuilder code = new StringBuilder();
 
         for (int i = 0; i < length; i++) {
-            int randomIndex = (int) Math.floor(Math.random() * (allNums.size() - 1));
-            int randomNum = allNums.remove(randomIndex);
+            int randomIndex = (int) Math.floor(Math.random() * (symbolCount - 1));
+            //int randomNum = allNums.remove(randomIndex);
 
-            code.append(randomNum);
+            code.append(allNums.get(randomIndex));
         }
+
+        StringBuilder message = new StringBuilder("The secret is prepared: ");
+        for (int j = 1; j <= code.length(); j++) {
+            message.append("*");
+        }
+
+        // todo: append the range of characters appearing in the secret
+
+        printMessage(message.toString());
 
         return code.toString();
     }
