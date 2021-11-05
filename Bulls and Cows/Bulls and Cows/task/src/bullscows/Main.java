@@ -92,11 +92,14 @@ public class Main {
         }
 
         StringBuilder message = new StringBuilder("The secret is prepared: ");
-        for (int j = 1; j <= code.length(); j++) {
-            message.append("*");
-        }
+        message.append("*".repeat(Math.max(0, code.length())));
 
         // todo: append the range of characters appearing in the secret
+        if (length <= 10) {
+            message.append(" (0-").append(allNums.get(symbolCount - 1)).append(")");
+        } else {
+            message.append(" (0-9, a-").append(allNums.get(symbolCount - 1)).append(")");
+        }
 
         printMessage(message.toString());
 
