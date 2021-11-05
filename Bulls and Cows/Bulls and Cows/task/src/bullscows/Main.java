@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    static String secretCode = generateNewCode();
+    static String secretCode;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         if (scanner.hasNext()) {
-            processUserCode(scanner.next());
+            generateNewCode(scanner.nextInt());
         }
     }
 
@@ -48,9 +48,23 @@ public class Main {
         }
     }
 
-    private static String generateNewCode() {
-        double d = Math.floor(Math.random() * (9999 - 1000) + 1);
-        return String.valueOf((int) d);
+    private static void generateNewCode(int length) {
+        if (length > 10) {
+            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
+            return;
+        }
+
+        List<Integer> allNums = new ArrayList<>(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        StringBuilder code = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = (int) Math.floor(Math.random() * (allNums.size() - 1));
+            int randomNum = allNums.remove(randomIndex == 0 && i == 0 ? randomIndex + 1 : randomIndex);
+
+            code.append(randomNum);
+        }
+
+        printMessage("The random secret number is " + code);
     }
 
     private static void printMessage(String message) {
