@@ -81,7 +81,7 @@ public class Main {
 
         for (int i = 0; i < length; i++) {
             int randomIndex = (int) Math.floor(Math.random() * (allNums.size() - 1));
-            int randomNum = allNums.remove(randomIndex == 0 && i == 0 ? randomIndex + 1 : randomIndex);
+            int randomNum = allNums.remove(randomIndex);
 
             code.append(randomNum);
         }
