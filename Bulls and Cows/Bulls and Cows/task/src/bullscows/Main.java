@@ -7,16 +7,36 @@ import java.util.Scanner;
 public class Main {
 
     static String secretCode;
+    static boolean continueLoop = true;
+    static int loopCount = 0;
 
     public static void main(String[] args) {
+
+        printMessage("Please, enter the secret code's length:");
+
         Scanner scanner = new Scanner(System.in);
 
-        if (scanner.hasNext()) {
-            generateNewCode(scanner.nextInt());
+        int length = scanner.nextInt();
+        while (length > 10) {
+            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
+            length = scanner.nextInt();
+        }
+
+        secretCode = generateNewCode(length);
+
+        printMessage("Okay, let's start a game!");
+
+        while (continueLoop) {
+            loopCount++;
+
+            if (scanner.hasNext()) {
+                printMessage("Turn " + loopCount + ":");
+                continueLoop = processUserCode(scanner.next());
+            }
         }
     }
 
-    private static void processUserCode(String code) {
+    private static boolean processUserCode(String code) {
         int bullCount = 0;
         int cowCount = 0;
         List<Integer> inputCowDigits = new ArrayList<>();
@@ -38,22 +58,24 @@ public class Main {
             }
         }
 
-        if (bullCount + cowCount == 0) {
-            printMessage("Grade: None. The secret code is " + secretCode);
+        if (bullCount == code.length()) {
+            printMessage("Grade: " + code.length() + " bulls");
+            printMessage("Congratulations! The secret code is " + secretCode + ".");
+            return false;
+        } else if (bullCount + cowCount == 0) {
+            printMessage("Grade: None.");
+            return true;
         } else {
-            printMessage("Grade: " +
+            printMessage(
+                    "Grade: " +
                     ((bullCount > 0) ? bullCount + " bull(s)" : "") +
-                    ((cowCount > 0) ? cowCount + " cow(s)" : "") +
-                    ". The secret code is " + secretCode);
+                    ((cowCount > 0) ? cowCount + " cow(s)" : "")
+            );
+            return true;
         }
     }
 
-    private static void generateNewCode(int length) {
-        if (length > 10) {
-            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
-            return;
-        }
-
+    private static String generateNewCode(int length) {
         List<Integer> allNums = new ArrayList<>(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
         StringBuilder code = new StringBuilder();
 
@@ -64,7 +86,7 @@ public class Main {
             code.append(randomNum);
         }
 
-        printMessage("The random secret number is " + code);
+        return code.toString();
     }
 
     private static void printMessage(String message) {
