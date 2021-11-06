@@ -20,10 +20,10 @@ public class Main {
         printMessage("Input the number of possible symbols in the code:");
         int symbolCount = scanner.nextInt();
 
-//        while (length > 10) {
-//            printMessage("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
-//            length = scanner.nextInt();
-//        }
+        while (length > 36) {
+            printMessage("Error: can't generate a secret number with a length of 37 because there aren't enough unique digits.");
+            length = scanner.nextInt();
+        }
 
         secretCode = generateNewCode(length, symbolCount);
 
@@ -79,16 +79,18 @@ public class Main {
     }
 
     private static String generateNewCode(int length, int symbolCount) {
-        List<Character> allNums = new ArrayList<>(List.of(
+        List<Character> staticCharList = new ArrayList<>(List.of(
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
                 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'));
+
+        List<Character> mutableCharList = new ArrayList<>(List.copyOf(staticCharList));
         StringBuilder code = new StringBuilder();
 
         for (int i = 0; i < length; i++) {
             int randomIndex = (int) Math.floor(Math.random() * (symbolCount - 1));
-            //int randomNum = allNums.remove(randomIndex);
+            int randomChar = mutableCharList.remove(randomIndex);
 
-            code.append(allNums.get(randomIndex));
+            code.append(Character.toString(randomChar));
         }
 
         StringBuilder message = new StringBuilder("The secret is prepared: ");
@@ -96,9 +98,9 @@ public class Main {
 
         // todo: append the range of characters appearing in the secret
         if (length <= 10) {
-            message.append(" (0-").append(allNums.get(symbolCount - 1)).append(")");
+            message.append(" (0-").append(staticCharList.get(symbolCount - 1)).append(")");
         } else {
-            message.append(" (0-9, a-").append(allNums.get(symbolCount - 1)).append(")");
+            message.append(" (0-9, a-").append(staticCharList.get(symbolCount - 1)).append(")");
         }
 
         printMessage(message.toString());
