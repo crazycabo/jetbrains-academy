@@ -1,6 +1,7 @@
 package bullscows;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,20 +10,39 @@ public class Main {
     static String secretCode;
     static boolean continueLoop = true;
     static int loopCount = 0;
+    static int length;
+    static int symbolCount;
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        printMessage("Input the length of the secret code:");
-        int length = scanner.nextInt();
-
-        printMessage("Input the number of possible symbols in the code:");
-        int symbolCount = scanner.nextInt();
-
-        while (length > 36) {
-            printMessage("Error: can't generate a secret number with a length of 37 because there aren't enough unique digits.");
+        try {
+            printMessage("Input the length of the secret code:");
             length = scanner.nextInt();
+
+            printMessage("Input the number of possible symbols in the code:");
+            symbolCount = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            printMessage("Error: length or symbol count input must be a number.");
+            return;
+        }
+
+        // todo: verify valid numbers
+        if (length <= 0 || symbolCount <= 0) {
+            printMessage("Error: length and symbol count cannot equal zero or less.");
+            return;
+        }
+
+        if (length > symbolCount) {
+            printMessage("Error: it's not possible to generate a code with a length of " +
+                    length + " with " + symbolCount + " unique symbols.");
+            return;
+        }
+
+        if (length > 36 || symbolCount > 36) {
+            printMessage("Error: maximum length or number of possible symbols in the code is 36 (0-9, a-z).");
+            return;
         }
 
         secretCode = generateNewCode(length, symbolCount);
