@@ -1,10 +1,18 @@
+package battleship;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 public class BattleshipGrid {
     private final Cell [][] BOARD;
     private int shipCount = 0;
     private final int MAX_SHIPS;
     private final ShipFleet shipFleet;
 
-    public BattleshipField(int rows, int maxShipCount) {
+    public BattleshipGrid(int rows, int maxShipCount) {
         this.BOARD = new Cell[rows][rows];
 
         for (int i = 0; i < rows; i++) {
@@ -14,7 +22,8 @@ public class BattleshipGrid {
         }
 
         MAX_SHIPS = maxShipCount;
-        navy = new Navy(this);
+
+        shipFleet = new ShipFleet(this);
     }
 
     public int getSize() {

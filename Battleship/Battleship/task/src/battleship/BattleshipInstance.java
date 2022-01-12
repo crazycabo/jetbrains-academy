@@ -1,3 +1,5 @@
+package battleship;
+
 public class BattleshipInstance {
     private final static int ROWS = 10;
     private static final int MAX_BOATS = 5;

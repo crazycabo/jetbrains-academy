@@ -282,16 +282,28 @@ files:
         }
     }
   learner_created: false
-- name: src/battleship/ShipType.java
+- name: src/battleship/ShipFleet.java
   visible: true
   learner_created: true
-- name: src/battleship/GameState.java
+- name: src/battleship/Battleship.java
   visible: true
   learner_created: true
-- name: src/battleship/UtilityFunctions.java
+- name: src/battleship/BattleshipInstance.java
   visible: true
   learner_created: true
-feedback_link: https://hyperskill.org/projects/125/stages/663/implement#comment
+- name: src/battleship/BattleshipGrid.java
+  visible: true
+  learner_created: true
+- name: src/battleship/Ship.java
+  visible: true
+  learner_created: true
+- name: src/battleship/Cell.java
+  visible: true
+  learner_created: true
+- name: src/battleship/CellState.java
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/10594#comment
 status: Failed
 feedback:
   message: |-

@@ -1,9 +1,19 @@
+package battleship;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
 public class ShipFleet {
     private final BattleshipGrid GRID;
     private final Map<Ship, Cell> shipsStern;
     private final Map<Ship, Cell> shipsBow;
 
-    public Navy(BattleshipGrid grid){
+    public ShipFleet(BattleshipGrid grid){
         shipsBow = new HashMap<>();
         shipsStern = new HashMap<>();
 
