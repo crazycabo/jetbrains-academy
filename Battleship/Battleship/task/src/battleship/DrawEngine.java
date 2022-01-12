@@ -1,5 +1,9 @@
 package battleship;
 
+import battleship.gameboard.BattleshipGrid;
+import battleship.gameboard.BattleshipInstance;
+import battleship.gameboard.Cell;
+
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

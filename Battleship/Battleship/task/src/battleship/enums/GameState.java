@@ -1,4 +1,4 @@
-package battleship;
+package battleship.enums;
 
 public enum GameState {
     P1_SETUP,

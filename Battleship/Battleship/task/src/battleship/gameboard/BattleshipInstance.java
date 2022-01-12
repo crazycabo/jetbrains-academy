@@ -1,4 +1,8 @@
-package battleship;
+package battleship.gameboard;
+
+import battleship.enums.GameState;
+import battleship.enums.ShellState;
+import battleship.enums.Ship;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

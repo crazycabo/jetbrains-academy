@@ -1,4 +1,7 @@
-package battleship;
+package battleship.gameboard;
+
+import battleship.enums.Ship;
+import battleship.models.ShipFleet;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -9,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class BattleshipGrid {
-    private final Cell [][] BOARD;
+    private final Cell[][] BOARD;
     private int shipCount = 0;
     private final int MAX_SHIPS;
     private final ShipFleet shipFleet;

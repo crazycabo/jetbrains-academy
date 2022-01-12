@@ -1,4 +1,4 @@
-package battleship;
+package battleship.enums;
 
 public enum CellState {
     FOG_OF_WAR('~'),

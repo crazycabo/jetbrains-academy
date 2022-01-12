@@ -282,34 +282,34 @@ files:
         }
     }
   learner_created: false
-- name: src/battleship/ShipFleet.java
-  visible: true
-  learner_created: true
 - name: src/battleship/Battleship.java
-  visible: true
-  learner_created: true
-- name: src/battleship/BattleshipInstance.java
-  visible: true
-  learner_created: true
-- name: src/battleship/BattleshipGrid.java
-  visible: true
-  learner_created: true
-- name: src/battleship/Ship.java
-  visible: true
-  learner_created: true
-- name: src/battleship/Cell.java
-  visible: true
-  learner_created: true
-- name: src/battleship/CellState.java
-  visible: true
-  learner_created: true
-- name: src/battleship/GameState.java
   visible: true
   learner_created: true
 - name: src/battleship/DrawEngine.java
   visible: true
   learner_created: true
-- name: src/battleship/ShellState.java
+- name: src/battleship/enums/Ship.java
+  visible: true
+  learner_created: true
+- name: src/battleship/enums/ShellState.java
+  visible: true
+  learner_created: true
+- name: src/battleship/enums/GameState.java
+  visible: true
+  learner_created: true
+- name: src/battleship/enums/CellState.java
+  visible: true
+  learner_created: true
+- name: src/battleship/models/ShipFleet.java
+  visible: true
+  learner_created: true
+- name: src/battleship/gameboard/BattleshipGrid.java
+  visible: true
+  learner_created: true
+- name: src/battleship/gameboard/BattleshipInstance.java
+  visible: true
+  learner_created: true
+- name: src/battleship/gameboard/Cell.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10594#comment

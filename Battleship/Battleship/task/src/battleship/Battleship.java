@@ -1,5 +1,9 @@
 package battleship;
 
+import battleship.enums.GameState;
+import battleship.enums.Ship;
+import battleship.gameboard.BattleshipInstance;
+
 import java.util.Scanner;
 
 public class Battleship {

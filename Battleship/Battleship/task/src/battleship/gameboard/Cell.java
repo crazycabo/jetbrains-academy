@@ -1,4 +1,6 @@
-package battleship;
+package battleship.gameboard;
+
+import battleship.enums.CellState;
 
 public class Cell implements Comparable <Cell> {
 

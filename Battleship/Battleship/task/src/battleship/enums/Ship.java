@@ -1,4 +1,4 @@
-package battleship;
+package battleship.enums;
 
 public enum Ship {
     AIRCRAFT_CARRIER("Aircraft Carrier", 5),

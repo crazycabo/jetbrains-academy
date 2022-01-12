@@ -1,4 +1,8 @@
-package battleship;
+package battleship.models;
+
+import battleship.gameboard.BattleshipGrid;
+import battleship.gameboard.Cell;
+import battleship.enums.Ship;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
