@@ -1,7 +1,9 @@
 package battleship;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -101,5 +103,45 @@ public class BattleshipGrid {
 
     private Iterator<Cell> sortCellsIterator(Cell beginCell, Cell endCell) {
         return Arrays.stream(new Cell[]{beginCell, endCell}).sorted().iterator();
+    }
+
+    public boolean shipSunk(Cell target) {
+        Ship targetedShip = shipFleet.getTargetedShip(target);
+        var shipSunk = targetedShip == null;
+
+        if (!shipSunk) {
+            Cell stern = shipFleet.getStern(targetedShip);
+            Cell bow = shipFleet.getBow(targetedShip);
+
+            shipSunk = cellRange(stern, bow).allMatch(Cell::isHit);
+
+            if (shipSunk) {
+                removeShip(targetedShip);
+            }
+
+        }
+        return shipSunk;
+    }
+
+    private void removeShip(Ship targetedShip) {
+        for (var field : shipFleet.getClass().getDeclaredFields()) {
+            removeShipFromNavy(field, targetedShip);
+        }
+    }
+
+    private void removeShipFromNavy(Field field, Ship targetedShip) {
+        if (field.getName().contains("ships")){
+            try {
+                field.setAccessible(true);
+
+                var fieldClass = (Map<Ship, Cell>) field.get(shipFleet);
+
+                fieldClass.remove(targetedShip);
+
+                shipCount = fieldClass.size();
+            } catch (IllegalAccessException ignored) {
+                // Nothing to act on
+            }
+        }
     }
 }

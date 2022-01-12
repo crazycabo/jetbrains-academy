@@ -303,6 +303,15 @@ files:
 - name: src/battleship/CellState.java
   visible: true
   learner_created: true
+- name: src/battleship/GameState.java
+  visible: true
+  learner_created: true
+- name: src/battleship/DrawEngine.java
+  visible: true
+  learner_created: true
+- name: src/battleship/ShellState.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10594#comment
 status: Failed
 feedback:
